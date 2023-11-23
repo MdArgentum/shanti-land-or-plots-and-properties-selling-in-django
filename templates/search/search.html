@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    search | Shanti Properties Ltd
+{% endblock title %}
+    
+
+{% block content %}
+{% load humanize %}
+    <!-- Banner start -->
+<div class="sub-banner overview-bgi" style="background-image: url({{globalapp_info.search_poster.url}});">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Search Results</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">Search</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Banner end -->
+
+<!-- Search box 3 start -->
+<div class="search-box-3 sb-7 bg-active">
+    <div class="container">
+        <div class="search-area-inner">
+            <div class="search-contents">
+                <form action="{% url 'search' %}" method="GET">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <input style="padding-left: 23px;" type="text" name="keyword"  placeholder="Search by name" class="form-control search-fields">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="form-control search-fields"  name="purpose_land">
+                                    <option selected="true" disabled="disabled">Purpose</option>
+                                    {% for purpose_land in purpose_land %}
+                                    <option value="{{purpose_land}}">{{purpose_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="completion_land">
+                                    <option selected="true" disabled="disabled">Complation</option>
+                                    {% for completion_land in completion_land %}
+                                    <option value="{{completion_land}}">{{completion_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="location_land">
+                                    <option selected="true" disabled="disabled">Location</option>
+                                    {% for location_land in location_land %}
+                                    <option value="{{location_land}}">{{location_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="property_type_land">
+                                    <option selected="true" disabled="disabled">Select Type Of Land or Plot</option>
+                                    {% if property_type_land %}
+                                    {% for property_type_land in property_type_land %}
+                                    <option value="{{property_type_land}}">{{property_type_land}}</option>
+                                    {% endfor %}
+                                    {% else %}
+                                    <option value=""></option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <div class="range-slider clearfix">
+                                    <div data-min="0" data-max="100000000" data-min-name="min_price" data-max-name="max_price"
+                                        data-unit="TK" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block button-theme btn-md">
+                                    <i class="fa fa-search"></i>Find Land
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search box 3 end -->
+
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Here's your <span>Land's Plot</span></h1>
+            <p>
+                {{globalapp_info.search_title}}
+            </p>
+        </div>
+        <div class="row">
+            {% for latest in land %}
+            <div class="col-lg-4 col-md-6">
+                <div class="car-box">
+                    <div class="car-thumbnail">
+                        <a href="{% url 'land_details' latest.name_slug %}" class="car-img">
+                            <div class="tag">For Sale</div>
+                            <img style="height: 220px;" class="d-block w-100" src="{{latest.image.url}}" alt="car">
+                            <div class="facilities-list clearfix">
+                                <ul>
+                                    <li>
+                                        <span><i class="flaticon-way"></i></span>SRF-{{latest.reference_id}}
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-calendar-1"></i><a class="text-white" target="_blank" href="{{latest.google_map}}">Map</a></span>
+                                    </li>
+                                    <li>
+                                        <span><i class="flaticon-manual-transmission"></i></span>Manual
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="carbox-overlap-wrapper">
+                            <div class="overlap-box">
+                                <div class="overlap-btns-area">
+                                    <div class="car-magnify-gallery">
+                                        <a href="{{latest.image.url}}" class="overlap-btn">
+                                            <i class="fa fa-expand"></i>
+                                            <img class="hidden" src="{{latest.image.url}}">
+                                        </a>
+
+                                        {% if latest.image_1 %}
+                                        <a href="{{latest.image_1.url}}" class="hidden">
+                                            <img class="hidden" src="{{latest.image_1.url}}">
+                                        </a>
+                                        {% endif %}
+                                        {% if latest.image_2 %}
+                                        <a href="{{latest.image_2.url}}" class="hidden">
+                                            <img class="hidden" src="{{latest.image_2.url}}">
+                                        </a>
+                                        {% endif %}
+                                        {% if latest.image_3 %}
+                                        <a href="{{latest.image_3.url}}" class="hidden">
+                                            <img class="hidden" src="{{latest.image_3.url}}">
+                                        </a>
+                                        {% endif %}
+                                        {% if latest.image_4 %}
+                                        <a href="{{latest.image_4.url}}" class="hidden">
+                                            <img class="hidden" src="{{latest.image_4.url}}">
+                                        </a>
+                                        {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <h1 class="title">
+                            <a href="{% url 'land_details' latest.name_slug %}">{{latest.name}}</a>
+                        </h1>
+                        <div class="location">
+                            <a href="{% url 'land_details' latest.name_slug %}">
+                                <i class="flaticon-pin"></i>{{latest.area}}, {{latest.location}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer clearfix">
+                        <div class="pull-left ratings days">
+                            <p class="cartype">{{latest.completion | upper}}</p>
+                        </div>
+                        <div class="pull-right">
+                            <p class="price">$ {{latest.price_total | intcomma }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <h2 class="text-danger text-center">No Land Properties</h2>
+            {% endfor %}
+       
+                
+                
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+<!-- Footer start -->
+
+<!-- Footer end -->
+
+<!-- Full Page Search -->
+{% endblock content %}
+    

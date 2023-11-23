@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shanti Properties Ltd | {{land.name}}
+{% endblock title %}
+
+
+{% block content %}
+{% load static %}
+{% load humanize %}
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi" style="background-image: url('{{land.image.url}}');">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{land.name}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">{{land.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Car details page start -->
+<div class="car-details-page content-area-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+                <div class="car-details-section">
+                    <!-- Heading start -->
+                    <div class="heading-car clearfix">
+                        <div class="pull-left">
+                            <h3>{{land.name}}</h3>
+                            <h6>
+                                <i class="flaticon-pin"></i>{{land.area}}, {{land.location}}
+                            </h6>
+                        </div>
+                        <div class="pull-right">
+                            <h3><span> {{land.price_total | intcomma }} TK Only</span></h3>
+                        </div>
+                    </div>
+                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+
+                            <div class="active item carousel-item" data-slide-number="0">
+                                <img src="{{land.image.url}}" class="img-fluid" alt="slider-car">
+                            </div>
+
+                            <div class="item carousel-item" data-slide-number="1">
+                                <img src="{{land.image_1.url}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            <div class="item carousel-item" data-slide-number="2">
+                                <img src="{{land.image_2.url}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            <div class="item carousel-item" data-slide-number="4">
+                                <img src="{{land.image_3.url}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            <div class="item carousel-item" data-slide-number="5">
+                                <img src="{{land.image_4.url}}" class="img-fluid" alt="slider-car">
+                            </div>
+                        </div>
+                        <!-- main slider carousel nav controls -->
+                        <div class="carousel-indicators-section clearfix">
+                            <ul class="carousel-indicators car-properties list-inline nav nav-justified">
+                                <li class="list-inline-item active">
+                                    <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#carDetailsSlider">
+                                        <img src="{{land.image.url}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-1" data-slide-to="1" data-target="#carDetailsSlider">
+                                        <img src="{{land.image_1.url}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-2" data-slide-to="2" data-target="#carDetailsSlider">
+                                        <img src="{{land.image_2.url}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-3" data-slide-to="3" data-target="#carDetailsSlider">
+                                        <img src="{{land.image_3.url}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-4" data-slide-to="4" data-target="#carDetailsSlider">
+                                        <img src="{{land.image_4.url}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabbing box start -->
+                    <div class="tabbing tabbing-box mb-40">
+                        <ul class="nav nav-tabs" id="carTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Short overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Long and Deep overview</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="carTabContent">
+                            <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                <div class="car-description mb-50">
+                                    <h3 class="heading-2">
+                                        Description
+                                    </h3>
+                                    
+                                    <p>
+                                        {{land.short_description | safe}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
+                                <div class="features-info mb-50">
+                                    <h3 class="heading-2">Long Description</h3>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            
+                                                    {{land.long_description | safe }}
+                                             
+                                        </div>
+
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                        
+                    
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search d-none-992">
+                        <button class="btn btn-outline-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Send message</button>
+
+
+                        <br>
+                        <h3 class="sidebar-title">Refine Your Search</h3>
+                        <ul>
+                            <li>
+                                <span>Reference No:</span>SRL-{{land.reference_id}}
+                            </li>
+                            <li>
+                                <span>Name :</span>{{land.name}}
+                            </li>
+                            <li>
+                                <span> Land Amount:</span>{{land.amount_land | intcomma}} Katha
+                            </li>
+                            <li>
+                                <span> Land Price:</span>{{land.price_total | intcomma}} TK
+                            </li>
+                            <li>
+                                <span> Land Price (per Kathal):</span>{{land.price_per_katha | intcomma}} TK
+                            </li>
+                            <li>
+                                <span>Land Address :</span>{{land.area}}, {{land.location}}
+                            </li>
+                            <li>
+                                <span>Districts of Land :</span>{{land.location}}
+                            </li>
+                            
+                            <li>
+                                <span>Purpose:</span>{{land.purpose}}
+                            </li>
+                            <li>
+                                <span>Completion:</span>{{land.completion}}
+                            </li>
+                            
+                            {% if land.property_category %}
+                            <li>
+                                <span>Properties Category:</span> {{land.property_category}}
+                            </li>
+                            {% endif %}
+                                
+                            
+                            {% if land.property_type %}
+                            <li>
+                                <span>Properties Type:</span> {{land.property_type}}
+                            </li>
+                            {% endif %}
+                                
+
+                            <li>
+                                <span>Priviouse Owner:</span> {{land.previews_owner}}
+                            </li>
+
+                            <li>
+                                <span>Current Owner:</span>  {{land.Current_owner}}
+                            </li>
+                            <li>
+                                <span>Agreement :</span>  Manually or directly
+                            </li>
+
+                            <li>
+                                <span>Last Updated#:</span> {{land.updated_at | timesince}} Ago
+                            </li>
+                            
+                         
+                        </ul>
+                    </div>
+
+                    <!-- Inquiry Modal -->
+                    <div style="z-index: 99999999999!important;" class="modal fade" id="inquiryModal" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div style="background-color: lightblue !important;" class="contact-dealer modal-header">
+                            
+                            <img style="width: 200px !important; " src="{% static 'logo.png' %}">
+                            <button type="button" class="close" data-dismiss="modal">
+                              <span>&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="{% url 'inquiry' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{% if user.is_authenticated %}{{user.id}}{% else %}0{%endif%}">
+                                  <label for="name" class="col-form-label">Hello, My Name is</label>
+                                  <div class="row">
+                                    <div class="col">
+                                      <input type="text"value="{% if user.is_authenticated %}{{user.first_name}}{% else %}{% endif %}" name="first_name" class="form-control" placeholder="First Name" required>
+                                    </div>
+                                    <div class="col">
+                                      <input type="text" value="{% if user.is_authenticated %}{{user.last_name}}{% else %}{% endif %}" name="last_name" class="form-control" placeholder="Last Name" required>
+                                    </div>
+                                  </div>
+                                </div>
+                                  <div class="form-group">
+                                      <select class="form-control" id="sel1" name="customer_need">
+                                        <option value="I'm interested in this">I'm interested in this Plot</option>
+                                        <option value="I'd like to know your best price for this">I'd like to know your best price for this Plot</option>
+                                        <option value="I'd like to test visit this">I'd like to test Visit this Plot</option>
+                                        <option value="I'd like a history report for this">I'd like a history report for this Plot</option>
+                                      </select>
+                                    </div>
+                                
+                                <div class="form-group">
+                                  <input type="text" name="land_title" class="form-control" value="{{land.name}}" readonly>
+                                </div>
+                               
+                                <div class="form-group">
+                                  <label for="name" class="col-form-label">I live in</label>
+                                  <div class="row">
+                                    <div class="col">
+                                      <input type="text" name="city" class="form-control" placeholder="City" required>
+                                    </div>
+                                    <div class="col">
+                                      <input type="text" name="division" class="form-control" placeholder="Division" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col">
+                                        <label for="name" class="col-form-label">You can reach me by email at</label>
+                                      <input type="email" value="{% if user.is_authenticated %}{{user.email}}{% else %}{% endif %}" name="email" class="form-control" placeholder="Email Address" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="phone" class="col-form-label">or by phone at</label>
+                                      <input type="text" name="phone" placeholder="Phone Number (optional)" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="message" class="col-form-label">Add comments</label>
+                                  <textarea name="message" class="form-control" placeholder="Enter your message here (optional)"></textarea>
+                                </div>
+                                <hr>
+                                <input type="submit" value="Send Message" class="btn btn-block btn-danger">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Question start -->
+                    <div class="widget question">
+                        <h5 class="sidebar-title">Contact or Any Question?</h5>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="flaticon-earth"></i>
+                                <span class="h4">{{ltdinfo_info.name}}</span>
+                            </li>
+                            <li>
+                                <i class="flaticon-pin"></i>{{ltdinfo_info.addres}}
+                            </li>
+                            <li>
+                                <i class="flaticon-mail"></i><a href="mailto:{{ltdinfo_info.email}}">{{ltdinfo_info.email}}</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-phone"></i><a href="tel:+0477-85x6-552">{{ltdinfo_info.phone}}</a>
+                            </li>
+                        </ul>
+                        <div class="social-list clearfix">
+                            <ul>
+                                <li><a target="_blank" href="{{ltdinfo_info.facebook}}" class="facebook-bg">
+                                    <i class="fa fa-facebook"></i></a></li>
+                                <li><a target="_blank" href="{{ltdinfo_info.twiter}}" class="twitter-bg">
+                                    <i class="fa fa-twitter"></i></a></li>
+                                <li><a target="_blank" href="{{ltdinfo_info.google}}" class="google-bg">
+                                    <i class="fa fa-google-plus"></i></a></li>
+                                <li><a target="_blank" href="{{ltdinfo_info.youtube}}" class="rss-bg">
+                                    <i class="fa fa-youtube"></i></a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Properties details page end -->
+
+<!-- Footer start -->
+
+<!-- Footer end -->
+
+
+<!-- Car Overview Modal -->
+
+
+{% endblock content %}
+    

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Dashboard | Shanti Properties Ltd
+{% endblock title %}
+
+
+{% block content %}
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi" style="background-image: url({{globalapp_info.dashboard_poster.url}});">
+	<div class="container breadcrumb-area">
+		<div class="breadcrumb-areas">
+			<h1>Dashboard</h1>
+			<ul class="breadcrumbs">
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li class="active">{{user.username}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- Sub Banner end -->
+
+<!--   Dashboard Start   -->
+
+<div class="container mt-50 mb-50">
+	<div class="main-title" style="text-align:left !important;">
+		<h1>Welcome <span>{{user.first_name}} {{user.last_name}} </span></h1>
+		<p>Here are the land's or Plot that you have inquired about</p>
+	</div>
+	{% include 'include/message.html' %}
+	<h1 style="text-align: center;">Message List</h1>
+	
+	{% if inquiry %}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Land or Plot Name</th>
+				<th scope="col">Location</th>
+				<th scope="col">Email</th>
+				<th scope="col">Message Status</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for item in inquiry %}
+			<tr>
+				<td>{{item.name}}</td>
+				<td>{{item.division}}</td>
+				<td>{{item.email}}</td>
+				<td><div style="background-color: red; color: white; border: 2px solid black;" class="btn">{{item.status}}</div></td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	{% else %}
+	<h1 style="text-align: center; padding: 20px 50px; color: white; background-color: red; border: 5px solid black;">No Message Yet</h1>
+	{% endif %}
+		
+</div>
+
+<!--   Dashboard End   -->
+
+
+{% endblock content %}

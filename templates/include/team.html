@@ -1,0 +1,42 @@
+<div class="our-team content-area bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+
+        <div class="main-title row">
+            <h1 class="col-md-12">Executive <span>Team Member</span></h1>
+            <p class="offset-md-2 col-md-8 h3">{{globalapp_info.team_title}}</p>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel"
+                data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+
+                {% for team in team %}
+                <div class="slick-slide-item">
+                    <div class="team-1">
+                        <div class="photo">
+                            <a href="#">
+                                <img style="height: 250px;" src="{{team.images.url}}" alt="team-1" class="img-fluid">
+                            </a>
+                            <div class="social-list clearfix">
+                                <a target="_blank" href="{{team.facebook}}" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                                <a target="_blank" href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                                <a target="_blank" href="#" class="google-bg"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <h4>{{team.name}}</h4>
+                            <h5>{{team.title}}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                No Team
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

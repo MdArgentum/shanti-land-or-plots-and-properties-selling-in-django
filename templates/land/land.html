@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Shanti Properties Ltd | Land Page
+{% endblock title %}
+    
+
+{% block content %}
+{% load static %}
+{% load humanize %}
+    <!-- Sub banner start -->
+<div class="sub-banner overview-bgi" style="background-image: url({{globalapp_info.land_poster.url}});">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Our Land Inventory</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">All Land</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                
+                <div class="row">
+                   
+                   {% for land in land %}
+                   <div class="col-lg-6 col-md-6">
+                    <div class="car-box-3">
+                        <div class="car-thumbnail">
+                            <a href="{% url 'land_details' land.name_slug %}" class="car-img">
+                                <div class="tag">For Sell</div>
+                                <div class="price-box">
+                                    <span> {{land.price_total | intcomma }} TK</span>
+                                </div>
+                                <img style="height: 220px;" class="d-block w-100" src="{{land.image.url}}" alt="car">
+                            </a>
+                            <div class="carbox-overlap-wrapper">
+                                <div class="overlap-box">
+                                    <div class="overlap-btns-area">
+                                        <div class="car-magnify-gallery">
+                                            <a href="{{land.image.url}}" class="overlap-btn">
+                                                <i class="fa fa-expand"></i>
+                                                <img class="hidden" src="{{land.image.url}}">
+                                            </a>
+                                            <a href="{{land.image_1.url}}" class="hidden" >
+                                                <img class="hidden" src="{{land.image_1.url}}">
+                                            </a>
+                                            <a href="{{land.image_2.url}}" class="hidden">
+                                                <img class="hidden" src="{{land.image_2.url}}">
+                                            </a>
+                                            <a href="{{land.image_3.url}}" class="hidden">
+                                                <img class="hidden" src="{{land.image_3.url}}">
+                                            </a>
+                                            <a href="{{land.image_4.url}}" class="hidden" >
+                                                <img class="hidden" src="{{land.image_4.url}}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <h1 class="title">
+                                <a href="{% url 'land_details' land.name_slug %}">{{land.name}}</a>
+                            </h1>
+                            <div class="location">
+                                <a href="{% url 'land_details' land.name_slug %}">
+                                    <i class="flaticon-pin"></i>{{land.area}}, {{land.location}}
+                                </a>
+                            </div>
+                            <ul class="facilities-list clearfix">
+                                <li>
+                                    {{land.purpose}}
+                                </li>
+                                <li>
+                                    {{land.completion}}
+                                </li>
+                                <li>
+                                    {{land.location}}
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                   {% empty %}
+                    <H2>There is no any Land Properties</H2>
+                   {% endfor %}
+                    
+                    
+                </div>
+                <!-- Page navigation start -->
+                <div class="pagination-box p-box-2 text-center">
+                    <nav aria-label="Page navigation example">
+                      {% if land.has_other_pages %}
+                        <ul class="pagination">
+                          {% if land.has_previous %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{land.previous_page_number}}"><i class="fa fa-angle-left"></i></a>
+                              </li>
+                          {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                          {% endif %}
+
+                          {% for i in land.paginator.page_range %}
+                            {% if land.number == i %}
+                              <li class="page-item"><a class="page-link active" href="#">{{i}}</a></li>
+                            {% else %}
+                              <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                          {% endfor %}
+
+                          {% if land.has_next %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{land.next_page_number}}"><i class="fa fa-angle-right"></i></a>
+                              </li>
+                          {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                          {% endif %}
+
+                        </ul>
+                      {% endif %}
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search2">
+                        <h3 class="sidebar-title">Search your desire car</h3>
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="form-group">
+                                <input type="text" name="keyword" placeholder="Search by name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="purpose_land">
+                                    <option selected="true" disabled="disabled">Purpose</option>
+                                    {% for purpose_land in purpose_land %}
+                                    <option value="{{purpose_land}}">{{purpose_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="completion_land">
+                                    <option selected="true" disabled="disabled">Complation</option>
+                                    {% for completion_land in completion_land %}
+                                    <option value="{{completion_land}}">{{completion_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="location_land">
+                                    <option selected="true" disabled="disabled">Location</option>
+                                    {% for location_land in location_land %}
+                                    <option value="{{location_land}}">{{location_land}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+            
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="property_type_land">
+                                    <option selected="true" disabled="disabled">Select Type Of Land or Plot</option>
+                                    {% if property_type_land %}
+                                    {% for property_type_land in property_type_land %}
+                                    <option value="{{property_type_land}}">{{property_type_land}}</option>
+                                    {% endfor %}
+                                    {% else %}
+                                    <option value=""></option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div class="range-slider clearfix">
+                                <label>Price</label>
+                                <div data-min="0" data-max="100000000" data-min-name="min_price" data-max-name="max_price"
+                                    data-unit="TK" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block button-theme btn-md">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+
+
+                        
+                        {% comment %}
+                        
+                        <form method="GET">
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="brand">
+                                    <option>Brand</option>
+                                    <option>Any</option>
+                                    <option>New</option>
+                                    <option>Semi-New</option>
+                                    <option>Damaged</option>
+                                    <option>Used</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="location">
+                                    <option>Location</option>
+                                    <option>United States</option>
+                                    <option>United Kingdom</option>
+                                    <option>American Samoa</option>
+                                    <option>Belgium</option>
+                                    <option>Cameroon</option>
+                                    <option>Canada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="year">
+                                    <option>Year</option>
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="category">
+                                    <option>Category</option>
+                                    <option>Luxury Car</option>
+                                    <option>Pickup Truck</option>
+                                    <option>Minivan</option>
+                                    <option>Truck</option>
+                                    <option>Sports Car</option>
+                                    <option>Wagon</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="selectpicker search-fields" name="transmission">
+                                    <option>Transmission</option>
+                                    <option>Automatic</option>
+                                    <option>Manual</option>
+                                    <option>Tiptronic</option>
+                                </select>
+                            </div>
+                            <div class="range-slider clearfix">
+                                <label>Price</label>
+                                <div data-min="0" data-max="150000"  data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button class="search-button btn">Search</button>
+                            </div>
+                        </form>
+                        {% endcomment %}
+                            
+                    </div>
+                   
+                    <!-- Question start -->
+                    <div class="widget question widget-3">
+                        <h5 class="sidebar-title">Follow us</h5>
+                        <div class="social-list clearfix">
+                            <ul>
+                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="rss-bg"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+
+<!-- Footer start -->
+
+<!-- Footer end -->
+
+
+
+
+{% endblock content %}
+    
